@@ -1,5 +1,5 @@
-import { FC, ReactNode } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { FC, ReactNode, useMemo } from 'react';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { Modal } from '../modal';
 
 interface IModalWithCloseProps {
@@ -9,6 +9,14 @@ interface IModalWithCloseProps {
 export const ModalWithClose: FC<IModalWithCloseProps> = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const params = useParams<{ number?: string }>();
+
+  const modalTitle = useMemo(() => {
+    if (params.number) {
+      return `#${String(params.number).padStart(6, '0')}`;
+    }
+    return '';
+  }, [params.number]);
 
   const handleClose = () => {
     const background = (location.state as { background?: Location })
@@ -30,7 +38,7 @@ export const ModalWithClose: FC<IModalWithCloseProps> = ({ children }) => {
   };
 
   return (
-    <Modal title='' onClose={handleClose}>
+    <Modal title={modalTitle} onClose={handleClose}>
       {children}
     </Modal>
   );

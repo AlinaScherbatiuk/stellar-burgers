@@ -17,8 +17,11 @@ export const OrderInfo: FC = () => {
   const orderData = currentOrder;
 
   useEffect(() => {
-    if (number && !currentOrder) {
-      dispatch(fetchOrderByNumber(Number(number)));
+    if (number) {
+      const orderNumber = Number(number);
+      if (!currentOrder || currentOrder.number !== orderNumber) {
+        dispatch(fetchOrderByNumber(orderNumber));
+      }
     }
   }, [dispatch, number, currentOrder]);
 

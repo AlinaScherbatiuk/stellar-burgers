@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TConstructorIngredient, TIngredient } from '../../utils/types';
+import { TConstructorIngredient } from '../../utils/types';
 
 interface IConstructorState {
   bun: TConstructorIngredient | null;
@@ -15,16 +15,8 @@ const constructorSlice = createSlice({
   name: 'constructor',
   initialState,
   reducers: {
-    addIngredient: (state, action: PayloadAction<TIngredient>) => {
-      const id =
-        typeof crypto !== 'undefined' && crypto.randomUUID
-          ? crypto.randomUUID()
-          : `${Date.now()}-${Math.random()}`;
-
-      const ingredient: TConstructorIngredient = {
-        ...action.payload,
-        id
-      };
+    addIngredient: (state, action: PayloadAction<TConstructorIngredient>) => {
+      const ingredient = action.payload;
 
       if (ingredient.type === 'bun') {
         state.bun = ingredient;
