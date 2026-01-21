@@ -11,7 +11,7 @@ import userReducer from './slices/userSlice';
 import feedReducer from './slices/feedSlice';
 import ordersReducer from './slices/ordersSlice';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   burgerConstructor: constructorReducer,
   user: userReducer,
